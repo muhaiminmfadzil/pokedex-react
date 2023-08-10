@@ -10,9 +10,7 @@ function PokemonImage({ number }) {
     setIsLoading(false)
   }
 
-  const handleImageError = (e) => {
-    e.target.style.display = 'none'
-    e.target.src = ''
+  const handleImageError = () => {
     setIsLoading(false)
     setIsError(true)
   }
@@ -24,14 +22,21 @@ function PokemonImage({ number }) {
     </div>
   )
 
+  const handleImage = () => {
+    if (isError) {
+      return errorState
+    } else {
+      return <img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${number}.png`} alt={`pokemon-${number}`} onLoad={handleImageLoaded} onError={handleImageError} />
+    }
+  }
+
   return (
     <>
       <div className='flex items-center justify-center w-40 h-40 mx-auto rounded-full bg-blue-50'>
-        <img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${number}.png`} alt={`pokemon-${number}`} onLoad={handleImageLoaded} onError={handleImageError} />
         {/* Loading */}
         {isLoading && loadingState}
-        {/* Error */}
-        {isError && errorState}
+        {/* Image */}
+        {handleImage()}
       </div>
     </>
   )
