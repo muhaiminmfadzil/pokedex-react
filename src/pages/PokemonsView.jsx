@@ -1,42 +1,11 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
 import PokemonCard from '../components/PokemonCard'
 import AnimatedSpinner from '../components/AnimatedSpinner'
+import PokemonContext from '../context/PokemonContext'
+import { useContext } from 'react'
+import Paginator from '../components/Paginator'
 
 function PokemonsView() {
-  const [pokemons, setPokemons] = useState([])
-  const [isFetching, setIsFetching] = useState(true)
-  const [isError, setIsError] = useState(false)
-
-  const sanitizeData = (obj) => {
-    let newObj = { ...obj }
-    // Number
-    const splitUrl = obj.url.split('/')
-    newObj.number = String(splitUrl[splitUrl.length - 2]).padStart(3, '0')
-
-    return newObj
-  }
-
-  useEffect(() => {
-    const params = {
-      limit: 20,
-      offset: 0,
-    }
-    const fetchPokemons = async () => {
-      try {
-        setIsFetching(true)
-        const { data } = await axios.get('https://pokeapi.co/api/v2/pokemon', { params })
-        const pokemons = data.results.map((result) => sanitizeData(result))
-        setPokemons(pokemons)
-      } catch (error) {
-        setIsError(true)
-      } finally {
-        setIsFetching(false)
-      }
-    }
-
-    fetchPokemons()
-  }, [])
+  const { pokemons, isFetching, isError } = useContext(PokemonContext)
 
   const errorState = (
     <div className='flex items-center justify-center h-[60dvh] text-xl font-normal text-blue-800'>
@@ -74,6 +43,10 @@ function PokemonsView() {
       <img className='object-cover w-64 h-32 pt-4 mx-auto' src='https://www.freepnglogos.com/uploads/pokemon-logo-png-0.png' alt='Pokemon Logo Png' />
       {/* Listing */}
       {handleFetching()}
+      {/* Paginator */}
+      <div className='fixed bottom-0 left-0 w-full'>
+        <Paginator />
+      </div>
     </>
   )
 }
