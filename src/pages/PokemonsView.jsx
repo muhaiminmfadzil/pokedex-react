@@ -25,7 +25,7 @@ function PokemonsView() {
     const fetchPokemons = async () => {
       try {
         setIsFetching(true)
-        const { data } = await axios.get('https://pokeapi.co/api/v2/pokemonasdf', { params })
+        const { data } = await axios.get('https://pokeapi.co/api/v2/pokemon', { params })
         const pokemons = data.results.map((result) => sanitizeData(result))
         setPokemons(pokemons)
       } catch (error) {
