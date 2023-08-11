@@ -8,9 +8,9 @@ export const PokemonProvider = ({ children }) => {
   const [isFetching, setIsFetching] = useState(true)
   const [isError, setIsError] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
-
-  // const currentPage = 1
-  const totalPage = 64
+  const [totalCount, setTotalCount] = useState(0)
+  const [totalPages, setTotalPages] = useState(0)
+  const limit = 20
 
   const sanitizeData = (obj) => {
     let newObj = { ...obj }
@@ -23,15 +23,18 @@ export const PokemonProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchPokemons = async () => {
-      const params = {
-        limit: 20,
-        offset: 0,
-      }
       try {
         setIsFetching(true)
+        const params = {
+          limit,
+          offset: (currentPage - 1) * limit,
+        }
         const { data } = await axios.get('https://pokeapi.co/api/v2/pokemon', { params })
         const pokemons = data.results.map((result) => sanitizeData(result))
+        const totalCount = data.count
         setPokemons(pokemons)
+        setTotalCount(totalCount)
+        setTotalPages(Math.ceil(totalCount / limit))
       } catch (error) {
         setIsError(true)
       } finally {
@@ -49,7 +52,9 @@ export const PokemonProvider = ({ children }) => {
         isFetching,
         isError,
         currentPage,
-        totalPage,
+        totalCount,
+        limit,
+        totalPages,
         setCurrentPage,
       }}
     >
