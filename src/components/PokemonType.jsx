@@ -14,6 +14,7 @@ function PokemonType({ type }) {
 
   return (
     <div className={`inline-flex items-center px-1 mr-1 bg-white border rounded-lg ${borderColor()}`}>
+      {/* <img v-if="getTypeIcon" :src="getTypeIcon" alt="" class="w-5 mr-1" /> */}
       <div className={`font-sm ${color()}`}>{typeName}</div>
     </div>
   )
