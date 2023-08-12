@@ -7,11 +7,11 @@ import { PokemonProvider } from './context/PokemonContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  // <React.StrictMode>
-  <PokemonProvider>
-    <div className='relative min-h-screen bg-blue-200'>
-      <RouterProvider router={router} />
-    </div>
-  </PokemonProvider>,
-  // </React.StrictMode>,
+  <React.StrictMode>
+    <PokemonProvider>
+      <div className='relative min-h-screen bg-blue-200'>
+        <RouterProvider router={router} />
+      </div>
+    </PokemonProvider>
+  </React.StrictMode>,
 )

@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import PokemonView from '../pages/PokemonsView'
-import PokemonStatus from '../pages/PokemonStatus'
+import PokemonDetail from '../pages/PokemonDetail'
 
 const router = createBrowserRouter([
   {
@@ -9,7 +9,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/:id',
-    element: <PokemonStatus />,
+    element: <PokemonDetail />,
   },
 ])
 

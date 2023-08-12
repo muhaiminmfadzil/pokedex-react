@@ -26,7 +26,7 @@ export const PokemonsApi = async ({ limit, offset }) => {
   }
 }
 
-export const StatusApi = async (stringId) => {
+export const DetailApi = async (stringId) => {
   const id = Number(stringId)
   const { data } = await axios.get(`/pokemon/${id}`)
   return { data }
