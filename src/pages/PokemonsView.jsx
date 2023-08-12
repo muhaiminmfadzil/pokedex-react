@@ -3,6 +3,7 @@ import AnimatedSpinner from '../components/AnimatedSpinner'
 import PokemonContext from '../context/PokemonContext'
 import { useContext } from 'react'
 import Paginator from '../components/Paginator'
+import { Link } from 'react-router-dom'
 
 function PokemonsView() {
   const { pokemons, isFetching, isError } = useContext(PokemonContext)
@@ -31,7 +32,9 @@ function PokemonsView() {
     return (
       <ul className='grid max-w-4xl grid-cols-1 gap-6 px-8 pt-8 pb-[80px] mx-auto bg-blue-200 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
         {pokemons.map((pokemon) => (
-          <PokemonCard key={pokemon.number} number={pokemon.number} name={pokemon.name} />
+          <Link to={pokemon.number} key={pokemon.number}>
+            <PokemonCard number={pokemon.number} name={pokemon.name} />
+          </Link>
         ))}
       </ul>
     )
