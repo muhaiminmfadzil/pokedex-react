@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { StatusApi } from '../api/PokemonsApi'
 import AnimatedSpinner from '../components/AnimatedSpinner'
 import PokemonImage from '../components/PokemonImage'
+import PokemonType from '../components/PokemonType'
 
 function PokemonStatus() {
   let { id } = useParams()
@@ -66,6 +67,10 @@ function PokemonStatus() {
               <div className='text-3xl font-semibold text-blue-800 uppercase'>{name}</div>
               <div className='text-base font-semibold text-blue-400'>#{id}</div>
             </div>
+            {/* Types */}
+            {status.types.map((type) => (
+              <PokemonType type={type.type} />
+            ))}
           </>
         )
       })()}
