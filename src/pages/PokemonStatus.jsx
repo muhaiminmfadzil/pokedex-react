@@ -30,6 +30,7 @@ function PokemonStatus() {
 
   return (
     <div className='max-w-4xl p-4 mx-auto'>
+      {/* Back button */}
       <Link to='/'>
         <button className='flex items-center px-1 py-2 mb-4 text-blue-800 rounded-lg hover:bg-blue-100'>
           <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5' stroke='currentColor' className='w-6 h-6 mr-1'>
@@ -38,6 +39,7 @@ function PokemonStatus() {
           Back
         </button>
       </Link>
+      {/* Status */}
       {(() => {
         if (isError) {
           return (
@@ -60,8 +62,8 @@ function PokemonStatus() {
             {/* Image */}
             <PokemonImage number={id} />
             {/* Name and id */}
-            <div className='flex items-baseline justify-between p-2 mt-2'>
-              <div className='text-3xl font-semibold text-blue-800'>{name}</div>
+            <div className='flex items-baseline justify-between p-2 mt-6'>
+              <div className='text-3xl font-semibold text-blue-800 uppercase'>{name}</div>
               <div className='text-base font-semibold text-blue-400'>#{id}</div>
             </div>
           </>
