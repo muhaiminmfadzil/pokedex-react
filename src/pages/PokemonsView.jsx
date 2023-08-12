@@ -1,12 +1,36 @@
 import PokemonCard from '../components/PokemonCard'
 import AnimatedSpinner from '../components/AnimatedSpinner'
 import PokemonContext from '../context/PokemonContext'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Paginator from '../components/Paginator'
 import { Link } from 'react-router-dom'
+import { PokemonsApi } from '../api/PokemonsApi'
 
 function PokemonsView() {
-  const { pokemons, isFetching, isError } = useContext(PokemonContext)
+  const { currentPage, limit, setTotalCount, setOffset, setTotalPages } = useContext(PokemonContext)
+  const [pokemons, setPokemons] = useState([])
+  const [isFetching, setIsFetching] = useState(true)
+  const [isError, setIsError] = useState(false)
+
+  useEffect(() => {
+    const fetchPokemons = async () => {
+      try {
+        setIsFetching(true)
+        const offset = (currentPage - 1) * limit
+        setOffset(offset)
+        const { pokemons, totalCount } = await PokemonsApi({ limit, offset })
+        setPokemons(pokemons)
+        setTotalCount(totalCount)
+        setTotalPages(Math.ceil(totalCount / limit))
+      } catch (error) {
+        setIsError(true)
+      } finally {
+        setIsFetching(false)
+      }
+    }
+
+    fetchPokemons()
+  }, [currentPage, limit, setOffset, setTotalCount, setTotalPages])
 
   return (
     <>
