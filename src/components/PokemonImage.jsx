@@ -1,34 +1,14 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import PropTypes from 'prop-types'
 import '../styles/PokemonImage.css'
+import HandleImage from '../global/HandleImage'
 
 function PokemonImage({ number }) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [isError, setIsError] = useState(false)
-
-  const handleImageLoaded = () => {
-    setIsLoading(false)
-  }
-
-  const handleImageError = () => {
-    setIsLoading(false)
-    setIsError(true)
-  }
-
-  const errorState = <div className='text-3xl font-semibold'>??</div>
-  const loadingState = (
-    <div className='flex items-center justify-center'>
-      <div className='spinner'></div>
-    </div>
-  )
-
   return (
     <>
       <div className='flex items-center justify-center w-40 h-40 mx-auto rounded-full bg-blue-50'>
-        {/* Loading */}
-        {isLoading && loadingState}
         {/* Image */}
-        {isError ? errorState : <img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${number}.png`} alt={`pokemon-${number}`} onLoad={handleImageLoaded} onError={handleImageError} />}
+        <HandleImage src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${number}.png`} alt={`pokemon-${number}`} errorItem='??' />
       </div>
     </>
   )
