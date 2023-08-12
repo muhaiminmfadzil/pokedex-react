@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { StatusApi } from '../api/PokemonsApi'
 import AnimatedSpinner from '../components/AnimatedSpinner'
+import PokemonImage from '../components/PokemonImage'
 
 function PokemonStatus() {
   let { id } = useParams()
@@ -55,10 +56,15 @@ function PokemonStatus() {
           )
         }
         return (
-          <div className='flex items-baseline justify-between p-2 mt-2'>
-            <div className='text-3xl font-semibold text-blue-800'>{name}</div>
-            <div className='text-base font-semibold text-blue-400'>#{id}</div>
-          </div>
+          <>
+            {/* Image */}
+            <PokemonImage number={id} />
+            {/* Name and id */}
+            <div className='flex items-baseline justify-between p-2 mt-2'>
+              <div className='text-3xl font-semibold text-blue-800'>{name}</div>
+              <div className='text-base font-semibold text-blue-400'>#{id}</div>
+            </div>
+          </>
         )
       })()}
     </div>
