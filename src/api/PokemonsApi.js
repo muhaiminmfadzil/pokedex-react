@@ -25,3 +25,9 @@ export const PokemonsApi = async ({ limit, offset }) => {
     totalCount,
   }
 }
+
+export const StatusApi = async (stringId) => {
+  const id = Number(stringId)
+  const { data } = await axios.get(`/pokemon/${id}`)
+  return { data }
+}
