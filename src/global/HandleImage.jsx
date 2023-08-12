@@ -23,7 +23,7 @@ function HandleImage({ src, alt, errorItem }) {
       )}
       {(() => {
         if (isError) {
-          return <div className='text-3xl font-semibold'>{errorItem}</div>
+          return errorItem ? <div className='text-3xl font-semibold'>{errorItem}</div> : <div></div>
         }
         return <img src={src} alt={alt} onLoad={handleImageLoaded} onError={handleImageError} />
       })()}
