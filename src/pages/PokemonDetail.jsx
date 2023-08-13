@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { StatusApi } from '../api/PokemonsApi'
+import { DetailApi } from '../api/PokemonsApi'
 import AnimatedSpinner from '../components/AnimatedSpinner'
 import PokemonImage from '../components/PokemonImage'
 import PokemonType from '../components/PokemonType'
+import PokemonStatus from '../components/PokemonStatus'
 
-function PokemonStatus() {
+function PokemonDetail() {
   let { id } = useParams()
   const [isError, setIsError] = useState(false)
   const [isFetching, setIsFetching] = useState(true)
-  const [status, setStatus] = useState(null)
+  const [detail, setDetail] = useState(null)
   const [name, setName] = useState('')
 
   useEffect(() => {
-    const fetchStatus = async () => {
+    const fetchDetail = async () => {
       try {
         setIsFetching(true)
-        const { data } = await StatusApi(id)
-        setStatus(data)
+        const { data } = await DetailApi(id)
+        setDetail(data)
         setName(data.name)
       } catch (error) {
         setIsError(true)
@@ -26,7 +27,7 @@ function PokemonStatus() {
       }
     }
 
-    fetchStatus()
+    fetchDetail()
   }, [id])
 
   return (
@@ -40,7 +41,7 @@ function PokemonStatus() {
           Back
         </button>
       </Link>
-      {/* Status */}
+      {/* Detail */}
       {(() => {
         if (isError) {
           return (
@@ -68,13 +69,17 @@ function PokemonStatus() {
               <div className='text-base font-semibold text-blue-400'>#{id}</div>
             </div>
             {/* Types */}
-            {status.types.map((type) => (
-              <PokemonType type={type.type} />
+            {detail.types.map((type) => (
+              <PokemonType key={type.slot} type={type.type} />
             ))}
+            {/* Status */}
+            <div className='my-4'>
+              <PokemonStatus stats={detail.stats} />
+            </div>
           </>
         )
       })()}
     </div>
   )
 }
-export default PokemonStatus
+export default PokemonDetail
