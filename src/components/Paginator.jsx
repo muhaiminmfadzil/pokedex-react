@@ -1,10 +1,10 @@
 import { Listbox } from '@headlessui/react'
 import { useEffect, useState } from 'react'
-import { usePokemonContext } from '../context/PokemonContext'
+import { usePaginationContext } from '../context/PokemonContext'
 import PaginationNumbers from './PaginationNumbers'
 
 function Paginator() {
-  const { currentPage, totalPages, offset, limit, totalCount, setCurrentPage } = usePokemonContext()
+  const { currentPage, totalPages, offset, limit, totalCount, setCurrentPage } = usePaginationContext()
   const [hasPrevious, setHasPrevious] = useState(false)
   const [hasNext, setHasNext] = useState(false)
   const [fromCounter, setFromCounter] = useState(1)

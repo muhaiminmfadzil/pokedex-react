@@ -1,7 +1,7 @@
-import { usePokemonContext } from '../context/PokemonContext'
+import { usePaginationContext } from '../context/PokemonContext'
 
 function PaginationNumbers() {
-  const { currentPage, totalPages, setCurrentPage } = usePokemonContext()
+  const { currentPage, totalPages, setCurrentPage } = usePaginationContext()
   const isCurrentPage = (page) => {
     return currentPage === page
   }

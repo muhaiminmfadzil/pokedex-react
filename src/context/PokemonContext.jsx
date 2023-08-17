@@ -1,12 +1,12 @@
 import { createContext, useContext, useState } from 'react'
 
-const PokemonContext = createContext()
+const PaginationContext = createContext()
 
-export const usePokemonContext = () => {
-  return useContext(PokemonContext)
+export const usePaginationContext = () => {
+  return useContext(PaginationContext)
 }
 
-export const PokemonProvider = ({ children }) => {
+export const PaginationProvider = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalCount, setTotalCount] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
@@ -14,7 +14,7 @@ export const PokemonProvider = ({ children }) => {
   const limit = 20
 
   return (
-    <PokemonContext.Provider
+    <PaginationContext.Provider
       value={{
         currentPage,
         totalCount,
@@ -28,6 +28,6 @@ export const PokemonProvider = ({ children }) => {
       }}
     >
       {children}
-    </PokemonContext.Provider>
+    </PaginationContext.Provider>
   )
 }
