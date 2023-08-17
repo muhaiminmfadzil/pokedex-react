@@ -1,6 +1,10 @@
-import { createContext, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 const PokemonContext = createContext()
+
+export const usePokemonContext = () => {
+  return useContext(PokemonContext)
+}
 
 export const PokemonProvider = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -27,5 +31,3 @@ export const PokemonProvider = ({ children }) => {
     </PokemonContext.Provider>
   )
 }
-
-export default PokemonContext

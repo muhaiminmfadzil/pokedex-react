@@ -1,13 +1,13 @@
 import PokemonCard from '../components/PokemonCard'
 import AnimatedSpinner from '../components/AnimatedSpinner'
-import PokemonContext from '../context/PokemonContext'
-import { useContext, useEffect, useState } from 'react'
+import { usePokemonContext } from '../context/PokemonContext'
+import { useEffect, useState } from 'react'
 import Paginator from '../components/Paginator'
 import { Link } from 'react-router-dom'
 import { PokemonsApi } from '../api/PokemonsApi'
 
 function PokemonsView() {
-  const { currentPage, limit, setTotalCount, setOffset, setTotalPages } = useContext(PokemonContext)
+  const { currentPage, limit, setTotalCount, setOffset, setTotalPages } = usePokemonContext()
   const [pokemons, setPokemons] = useState([])
   const [isFetching, setIsFetching] = useState(true)
   const [isError, setIsError] = useState(false)
