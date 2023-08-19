@@ -1,34 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { DetailApi } from '../api/PokemonsApi'
 import AnimatedSpinner from '../components/AnimatedSpinner'
 import PokemonImage from '../components/PokemonImage'
 import PokemonType from '../components/PokemonType'
 import PokemonStatus from '../components/PokemonStatus'
+import { useQuery } from 'react-query'
 
 function PokemonDetail() {
   let { id } = useParams()
-  const [isError, setIsError] = useState(false)
-  const [isFetching, setIsFetching] = useState(true)
   const [detail, setDetail] = useState(null)
   const [name, setName] = useState('')
 
-  useEffect(() => {
-    const fetchDetail = async () => {
-      try {
-        setIsFetching(true)
-        const { data } = await DetailApi(id)
-        setDetail(data)
-        setName(data.name)
-      } catch (error) {
-        setIsError(true)
-      } finally {
-        setIsFetching(false)
-      }
-    }
+  const fetchDetail = async () => {
+    const { data } = await DetailApi(id)
+    setDetail(data)
+    setName(data.name)
+  }
 
-    fetchDetail()
-  }, [id])
+  const { isLoading, isError } = useQuery({ queryKey: ['pokemon-detail', id], queryFn: fetchDetail })
 
   return (
     <div className='max-w-4xl p-4 mx-auto'>
@@ -43,6 +33,7 @@ function PokemonDetail() {
       </Link>
       {/* Detail */}
       {(() => {
+        // Error state
         if (isError) {
           return (
             <div className='flex items-center justify-center h-[60dvh] text-xl text-center font-normal text-blue-800'>
@@ -52,13 +43,15 @@ function PokemonDetail() {
             </div>
           )
         }
-        if (isFetching) {
+        // Loading state
+        if (isLoading) {
           return (
             <div className='flex items-center justify-center h-[60dvh]'>
               <AnimatedSpinner size='large' />
             </div>
           )
         }
+        // Success
         return (
           <>
             {/* Image */}
