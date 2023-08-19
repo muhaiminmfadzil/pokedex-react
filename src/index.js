@@ -7,7 +7,9 @@ import { PaginationProvider } from './context/PokemonContext'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 // Query client
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { staleTime: 600000 } }, // 10 minutes cache
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(

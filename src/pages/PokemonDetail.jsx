@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { DetailApi } from '../api/PokemonsApi'
 import AnimatedSpinner from '../components/AnimatedSpinner'
@@ -9,16 +9,13 @@ import { useQuery } from 'react-query'
 
 function PokemonDetail() {
   let { id } = useParams()
-  const [detail, setDetail] = useState(null)
-  const [name, setName] = useState('')
 
   const fetchDetail = async () => {
     const { data } = await DetailApi(id)
-    setDetail(data)
-    setName(data.name)
+    return data
   }
 
-  const { isLoading, isError } = useQuery({ queryKey: ['pokemon-detail', id], queryFn: fetchDetail })
+  const { isLoading, isError, data } = useQuery({ queryKey: ['pokemon-detail', id], queryFn: fetchDetail })
 
   return (
     <div className='max-w-4xl p-4 mx-auto'>
@@ -58,16 +55,16 @@ function PokemonDetail() {
             <PokemonImage number={id} />
             {/* Name and id */}
             <div className='flex items-baseline justify-between p-2 mt-6'>
-              <div className='text-3xl font-semibold text-blue-800 uppercase'>{name}</div>
+              <div className='text-3xl font-semibold text-blue-800 uppercase'>{data.name}</div>
               <div className='text-base font-semibold text-blue-400'>#{id}</div>
             </div>
             {/* Types */}
-            {detail.types.map((type) => (
+            {data.types.map((type) => (
               <PokemonType key={type.slot} type={type.type} />
             ))}
             {/* Status */}
             <div className='my-4'>
-              <PokemonStatus stats={detail.stats} />
+              <PokemonStatus stats={data.stats} />
             </div>
           </>
         )
