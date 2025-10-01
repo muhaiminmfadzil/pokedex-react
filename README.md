@@ -59,4 +59,4 @@ yarn build
 
 ## Additional notes
 
-1. Live preview is available [here](https://pokedex-react.meenkun.com)
+1. Live preview is available [here](https://mf-pokedex-react.netlify.app)
